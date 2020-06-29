@@ -241,16 +241,11 @@ def line(
         # dynamically with a little script.
         if present_lines is None:
             yield '''
-                # If the file now exists
                 if [ -f "{target}" ]; then
-                    # Grep for the line, sed if matches
                     (grep "{match_line}" "{target}" && {sed_replace_command}) 2> /dev/null || \
-                    # Else echo
-                    {echo_command}
-
-                # No file, just echo
+                    echo "FILE NO MATCH, DO ECHO"
                 else
-                    {echo_command}
+                    echo "NO FILE, DO ECHO"
                 fi
             '''.format(
                 target=name,
